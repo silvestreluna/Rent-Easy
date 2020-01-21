@@ -1,5 +1,7 @@
 -- Create DB first 
--- Create database RentEasy;
+Create database RentEasy;
+
+GO
 
 use RentEasy
 
