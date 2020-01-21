@@ -11,7 +11,7 @@ Create table [user]
 	[Email] nvarchar(50) not null,
 	[PhoneNum] nvarchar(15),
 	[UserImg] int, 
-	[Fbuid] int
+	[Fbuid] nvarchar(max)
 )
 
 Go
@@ -92,4 +92,32 @@ alter table [Appointment]
 add constraint FK_Appointment_Room
 foreign key(RoomId)
 references Room(Id)
+
+
+
+--- Seed data
+--USER
+insert into [user]
+values ('Silvestre', 'Luna', 'luna@gmail.com', '615-111-1234',null,'12345fbuid' ),
+('John', 'Doe', 'doe@gmail.com', '615-123-1234',null,'12345fbuid' )
+
+go
+
+insert into [Address]
+values('123 west main st', 'nashville', 'TN', '12345')
+
+go
+
+insert into [room]
+values(1, null, 1, 0)
+
+go
+
+insert into [images]
+values('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9HBzEmvIMS4exeopzvvOwivL81lxEnnJMcoMKAIJ1TVOOjCU&s', 0, 1, 1)
+
+Go
+
+insert into [Appointment]
+values (1, 1, '20190909');
 
