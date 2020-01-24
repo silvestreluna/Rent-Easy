@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Rent_Easy.DataAccess;
+using Rent_Easy.DTO;
 using Rent_Easy.Models;
 
 namespace Rent_Easy.Controllers
@@ -25,6 +26,13 @@ namespace Rent_Easy.Controllers
         public IEnumerable<Room> GetAllRooms()
         {
             return _repo.GetRooms();
+        }
+
+        [HttpPost]
+        public ActionResult<Room> AddNewRoomForRent(RoomDTO newRoom)
+        {
+            var addedRoom = _repo.NewRoomForRent(newRoom);
+            return Ok(addedRoom);
         }
 
     }

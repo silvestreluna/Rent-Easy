@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Rent_Easy.DTO;
 using Rent_Easy.Models;
 using System;
 using System.Collections.Generic;
@@ -44,5 +45,21 @@ namespace Rent_Easy.DataAccess
 
             }
         }
+
+        public IEnumerable<Room> NewRoomForRent(RoomDTO newRoom)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"INSERT INTO [Room]
+                    ([Street], [City], [State], [Zip], [UserId], [IsMasterRoom])
+                     
+                    output inserted.*                        
+
+                    VALUES (@street, @city, @state, @zip, @userId, @isMasterRoom)";
+
+                return db.Query<Room>(sql, newRoom);
+            }
+        }
+
     }
 }
