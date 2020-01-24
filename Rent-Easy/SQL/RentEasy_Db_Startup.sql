@@ -21,7 +21,7 @@ Go
 create table [Images]
 (
 	[Id] int primary key identity(1,1),
-	[Ulr] nvarchar(max) not null,
+	[Url] nvarchar(max) not null,
 	[IsUserProfileImg] bit not null default 0,
 	[RoomId] int not null,
 	[UserId] int not null,
@@ -33,24 +33,16 @@ Go
 Create table [Room] 
 (
 	[Id] int primary key identity(1,1),
-	[AddressId] int not null,
-	[Images] int,
+	[Street] nvarchar(max) not null,
+	[City] nvarchar(max) not null,
+	[State] nvarchar(50) not null,
+	[Zip] nvarchar(10) not null,
 	[UserId] int not null,
 	[isMasterRoom] bit not null default 0
 )
 
 Go
 
-Create table [Address] 
-(
-	[Id] int primary key identity(1,1),
-	[Street] nvarchar(max) not null,
-	[City] nvarchar(max) not null,
-	[State] nvarchar(50) not null,
-	[Zip] nvarchar(10) not null,
-)
-
-Go
 
 Create table [Appointment] 
 (
@@ -83,12 +75,6 @@ references [User](Id)
 
 Go
 
-alter table [Room]
-add constraint FK_Room_Address
-foreign key(AddressId)
-references [Address](Id)
-
-Go
 
 alter table [Appointment]
 add constraint FK_Appointment_Room
@@ -100,18 +86,15 @@ references Room(Id)
 --- Seed data
 --USER
 insert into [user]
-values ('Silvestre', 'Luna', 'luna@gmail.com', '615-111-1234',null,'12345fbuid' ),
+values ('Silvestre', 'Luna', 'luna@gmail.com', '615-111-1234',null,'12345fbuid'),
 ('John', 'Doe', 'doe@gmail.com', '615-123-1234',null,'12345fbuid' )
 
-go
-
-insert into [Address]
-values('123 west main st', 'nashville', 'TN', '12345')
 
 go
+
 
 insert into [room]
-values(1, null, 1, 0)
+values('123 west main st', 'nashville', 'TN','12345', 1, 0)
 
 go
 
@@ -120,6 +103,8 @@ values('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9HBzEmvIMS4exeopz
 
 Go
 
+
 insert into [Appointment]
 values (1, 1, '20190909');
+
 
