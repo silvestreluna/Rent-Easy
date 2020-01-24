@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Rent_Easy.DataAccess;
 
 namespace Rent_Easy
 {
@@ -26,6 +28,20 @@ namespace Rent_Easy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            var connectionString = Configuration.GetValue<string>("connectionString");
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddCors(options =>
+                options.AddPolicy("ItsAllGood",
+                    builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
+                );
+
+            services.AddTransient<SqlConnection>(provider => new SqlConnection(connectionString));
+            services.AddTransient<RoomRepo>();
+            services.AddTransient<ImagesRepo>();
+            services.AddSingleton(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +57,7 @@ namespace Rent_Easy
                 app.UseHsts();
             }
 
+            app.UseCors("ItsAllGood");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
