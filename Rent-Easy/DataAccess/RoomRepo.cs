@@ -46,6 +46,25 @@ namespace Rent_Easy.DataAccess
             }
         }
 
+        public Room UpdateARoom(Room updatedRoomObj, int id)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"UPDATE [Room]
+                                   SET [Street] = @street,
+                                       [City] = @city,
+                                       [State] = @state,
+                                       [Zip] = @zip,
+                                       [UserId] = @userId,
+                                       [IsMasterRoom] = @isMasterRoom
+                                       output inserted.*
+                                       WHERE id = @id";
+
+                updatedRoomObj.Id = id;
+                return db.QueryFirst<Room>(sql, updatedRoomObj);
+            }
+        }
+
         internal bool DeleteRoomById(int roomId)
         {
             using(var db = new SqlConnection(_connectionString))
