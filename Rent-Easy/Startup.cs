@@ -39,6 +39,7 @@ namespace Rent_Easy
 
             services.AddTransient<SqlConnection>(provider => new SqlConnection(connectionString));
             services.AddTransient<RoomRepo>();
+            services.AddTransient<UserRepo>();
             services.AddTransient<ImagesRepo>();
             services.AddSingleton(Configuration);
 
