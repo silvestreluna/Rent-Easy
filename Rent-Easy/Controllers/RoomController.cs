@@ -35,5 +35,20 @@ namespace Rent_Easy.Controllers
             return Ok(addedRoom);
         }
 
+        [HttpDelete("{id}")]
+        public void DeleteRoomByRoomId(int id)
+        {
+            _repo.DeleteRoomById(id);
+        }
+
+        [HttpPut("{editRoomId}")]
+        public IActionResult UpdateARoom(Room updatedRoomObj, int editRoomId)
+        {
+            var updatedRoom = _repo.UpdateARoom(updatedRoomObj, editRoomId);
+            return Ok(updatedRoom);
+        }
+
+
+
     }
 }

@@ -46,7 +46,36 @@ namespace Rent_Easy.DataAccess
             }
         }
 
-        public IEnumerable<Room> NewRoomForRent(RoomDTO newRoom)
+        public Room UpdateARoom(Room updatedRoomObj, int id)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"UPDATE [Room]
+                                   SET [Street] = @street,
+                                       [City] = @city,
+                                       [State] = @state,
+                                       [Zip] = @zip,
+                                       [UserId] = @userId,
+                                       [IsMasterRoom] = @isMasterRoom
+                                       output inserted.*
+                                       WHERE id = @id";
+
+                updatedRoomObj.Id = id;
+                return db.QueryFirst<Room>(sql, updatedRoomObj);
+            }
+        }
+
+        internal bool DeleteRoomById(int roomId)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"DELETE FROM [Room] WHERE [Id] = @roomId";
+
+                return db.Execute(sql, new { roomId }) == 1;
+            }
+        }
+
+        public Room NewRoomForRent(RoomDTO newRoom)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -57,7 +86,7 @@ namespace Rent_Easy.DataAccess
 
                     VALUES (@street, @city, @state, @zip, @userId, @isMasterRoom)";
 
-                return db.Query<Room>(sql, newRoom);
+                return db.QueryFirst<Room>(sql, newRoom);
             }
         }
 
