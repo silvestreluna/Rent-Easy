@@ -10,6 +10,7 @@ namespace Rent_Easy.DTO
         public string Fname { get; set; }
         public string Lname { get; set; }
         public string PhoneNum { get; set; }
+        public string Email { get; set; }
         public string Fbuid { get; set; }
     }
 }

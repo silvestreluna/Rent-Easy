@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Rent_Easy.DataAccess;
+using Rent_Easy.DTO;
 using Rent_Easy.Models;
 
 namespace Rent_Easy.Controllers
@@ -25,6 +26,12 @@ namespace Rent_Easy.Controllers
         {
             var user =_repo.GetUser(id);
             return user;
+        }
+
+        [HttpPost]
+        public User AddUser(UserDTO newUser)
+        {
+            return _repo.AddNewUser(newUser);
         }
     }
 }
