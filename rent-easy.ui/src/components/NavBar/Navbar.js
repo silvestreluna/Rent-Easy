@@ -79,6 +79,8 @@ export default function NavbarClass() {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
+            <div>
+            </div>
             <InputBase
               placeholder="Search…"
               classes={{
