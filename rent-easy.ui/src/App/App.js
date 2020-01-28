@@ -1,15 +1,30 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Link,
+} from 'react-router-dom';
+import Layout from '../components/Layout/Layout';
+import NavbarClass from '../components/NavBar/Navbar';
+import Footer from '../components/Footer/Footer';
 import './App.scss';
-import Button from '@material-ui/core/Button';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello</h1>
-      <Button variant="contained" color="primary">
-        click me
-      </Button>
-    </div>
+    <Router>
+      <div className="App">
+        <NavbarClass />
+        <div className="links-wrapper">
+          <Link className="new-user-btn" to="/home">
+            Home
+          </Link>
+          <Link className="new-user-btn" to="/new-user">
+            New User
+          </Link>
+        </div>
+        <Layout />
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

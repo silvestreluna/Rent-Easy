@@ -1,0 +1,73 @@
+.NewUser {
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+
+  text-align: center;
+  .new-user-form {
+    display: flex;
+    justify-content: center;
+  }
+
+  // .name-wrapper {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   justify-content: center;
+  // }
+
+  // .email-phone-wrapper {
+  //   display: flex;
+  //   flex-direction: column;
+  //   flex-wrap: wrap;
+  //   justify-content: center;
+  //   // width: 100%;
+  //   input {
+  //     max-width: 90%;
+  //   }
+  // }
+
+  input {
+    height: 30px;
+    padding: 8px;
+    margin: 8px;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #495057;
+    // border-radius: 2em;
+
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    // border-bottom-style: groove;
+    background-color: #f8f9fa;
+    // border: 1px none #dbdbe4;
+  }
+
+  // #user-email {
+  //   display: flex;
+  //   flex-basis: content;
+  // }
+
+  #sign-in-btn {
+    color: #fff;
+    background-color: #007bff;
+    width: 60%;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    margin-top: 2em;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+  }
+
+  #sign-in-btn:active {
+    color: #fff;
+    background-color: #0062cc;
+    border-color: #005cbf;
+  }
+}
