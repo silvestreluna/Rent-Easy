@@ -1,5 +1,7 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import {
+  Switch, Route, Redirect,
+} from 'react-router-dom';
 import NewUser from '../NewUser/NewUser';
 import Home from '../Home/Home';
 
@@ -10,13 +12,9 @@ class Layout extends React.Component {
     return (
       <div className="Layout">
         <Switch>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/new-user">
-            <NewUser />
-          </Route>
-          <Redirect from="*" to="/home" />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/new-user" component={NewUser}/>
+          <Redirect to="/home" />
         </Switch>
       </div>
     );

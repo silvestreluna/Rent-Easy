@@ -1,10 +1,15 @@
 import React from 'react';
+import Rooms from '../Rooms/Rooms';
 
 class Home extends React.Component {
+  state = {
+    roomsObj: [],
+  }
+
   render() {
     return (
       <div>
-        <h1>Home page</h1>
+        <Rooms />
       </div>
     );
   }
