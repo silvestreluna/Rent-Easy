@@ -3,6 +3,8 @@ import {
   BrowserRouter as Router,
   Link,
 } from 'react-router-dom';
+import HomeSharpIcon from '@material-ui/icons/HomeSharp';
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Layout from '../components/Layout/Layout';
 import NavbarClass from '../components/NavBar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -15,10 +17,10 @@ function App() {
         <NavbarClass />
         <div className="links-wrapper">
           <Link className="new-user-btn" to="/home">
-            Home
+            <HomeSharpIcon />
           </Link>
           <Link className="new-user-btn" to="/new-user">
-            New User
+            <PersonAddOutlinedIcon />
           </Link>
         </div>
         <Layout />
