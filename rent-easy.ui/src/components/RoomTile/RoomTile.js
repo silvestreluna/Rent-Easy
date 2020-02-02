@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import './RoomTile.scss';
@@ -6,6 +7,8 @@ import './RoomTile.scss';
 class RoomTile extends React.Component {
   render() {
     const { room } = this.props;
+
+    const detailPage = `/roomDetail/${room.id}`;
     return (
       <div className="RoomTile">
         <div className="card-img">
@@ -30,7 +33,9 @@ class RoomTile extends React.Component {
               <p>Jeressia WIllis</p>
             </div>
             <div className="info-icon">
-              <MoreVertIcon />
+              <Link onClick={this.roomHandler} to={detailPage}>
+                <MoreVertIcon />
+              </Link>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ class Layout extends React.Component {
         <Switch>
           <Route exact path="/home" component={Home} />
           <Route exact path="/new-user" component={NewUser}/>
-          <Route exact path="/roomDetail" component={RoomDetailPage}/>
+          <Route exact path="/roomDetail/:id" component={RoomDetailPage}/>
           <Redirect to="/home" />
         </Switch>
       </div>

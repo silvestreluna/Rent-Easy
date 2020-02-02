@@ -10,5 +10,6 @@ const getAllRooms = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getRoomById = (id) => axios.get(`${baseUrl}/${id}`);
 
-export default { getAllRooms };
+export default { getAllRooms, getRoomById };

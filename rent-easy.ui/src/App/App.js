@@ -7,7 +7,7 @@ import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Layout from '../components/Layout/Layout';
 import NavbarClass from '../components/NavBar/Navbar';
-import Footer from '../components/Footer/Footer';
+// import Footer from '../components/Footer/Footer';
 import './App.scss';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           </Link>
         </div>
         <Layout />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );
