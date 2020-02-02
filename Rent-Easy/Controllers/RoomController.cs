@@ -28,6 +28,12 @@ namespace Rent_Easy.Controllers
             return _repo.GetRooms();
         }
 
+        [HttpGet("{id}")]
+        public Room GetRoomByRoomId(int id)
+        {
+            return _repo.GetRoomById(id);
+        }
+
         [HttpPost]
         public ActionResult<Room> AddNewRoomForRent(RoomDTO newRoom)
         {

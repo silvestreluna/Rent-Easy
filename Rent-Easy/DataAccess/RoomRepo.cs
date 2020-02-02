@@ -25,14 +25,7 @@ namespace Rent_Easy.DataAccess
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sql = @"SELECT [Id],
-                                   [Street],
-                                   [City],
-                                   [State],
-                                   [Zip],
-                                   [UserId],
-                                   [isMasterRoom]
-                                   FROM [Room]";
+                var sql = @"SELECT * FROM [Room]";
                 var allRooms = db.Query<Room>(sql);
 
                 foreach(var room in allRooms) 
@@ -46,6 +39,22 @@ namespace Rent_Easy.DataAccess
             }
         }
 
+        public Room GetRoomById(int id)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"SELECT * FROM ROOM WHERE Id = @id";
+
+                var roomResult = db.QueryFirst<Room>(sql, new { id });
+
+                var imgRepo = _imgRepo.GetImagesByRoomId(roomResult.Id);
+                roomResult.Images = imgRepo.ToList();
+
+                return roomResult;
+
+            }
+        } 
+
         public Room UpdateARoom(Room updatedRoomObj, int id)
         {
             using(var db = new SqlConnection(_connectionString))
@@ -57,6 +66,11 @@ namespace Rent_Easy.DataAccess
                                        [Zip] = @zip,
                                        [UserId] = @userId,
                                        [IsMasterRoom] = @isMasterRoom
+                                       [PrivateBathroom] = @privateBathroom,
+                                       [Title] = @title,
+                                       [RoomDesc] = @roomDesc,
+                                       [AvailDate] = @availDate,
+                                       [Price] =@price
                                        output inserted.*
                                        WHERE id = @id";
 
@@ -80,7 +94,7 @@ namespace Rent_Easy.DataAccess
             using (var db = new SqlConnection(_connectionString))
             {
                 var sql = @"INSERT INTO [Room]
-                    ([Street], [City], [State], [Zip], [UserId], [IsMasterRoom])
+                    ([Street], [City], [State], [Zip], [UserId], [IsMasterRoom], [PrivateBathroom], [Title], [RoomDesc], [AvailDate], [Price])
                      
                     output inserted.*                        
 

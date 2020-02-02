@@ -14,6 +14,11 @@ namespace Rent_Easy.Models
         public string Zip { get; set; }
         public int UserId { get; set; }
         public bool IsMasterRoom { get; set; }
+        public bool PrivateBathroom { get; set; }
+        public string Title { get; set; }
+        public string RoomDesc { get; set; }
+        public DateTime AvailDate {get; set;}
+        public string Price { get; set; }
         public List<Images> Images { get; set; }
     }
 }

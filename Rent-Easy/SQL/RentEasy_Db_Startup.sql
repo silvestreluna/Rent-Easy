@@ -38,7 +38,12 @@ Create table [Room]
 	[State] nvarchar(50) not null,
 	[Zip] nvarchar(10) not null,
 	[UserId] int not null,
-	[isMasterRoom] bit not null default 0
+	[IsMasterRoom] bit not null default 0,
+	[PrivateBathroom] bit not null default 0,
+	[Title] nvarchar(max) not null,
+	[RoomDesc] nvarchar(max) not null,
+	[AvailDate] datetime not null,
+	[Price] nvarchar(max) not null,
 )
 
 Go
@@ -49,7 +54,7 @@ Create table [Appointment]
 	[Id] int primary key identity(1,1),
 	[ClientId] int not null,
 	[RoomId] int not null,
-	[Date] DateTime default Getdate()
+	[Date] DateTime, 
 )
 
 Go 
@@ -93,10 +98,6 @@ values ('Silvestre', 'Luna', 'luna@gmail.com', '615-111-1234',null,'12345fbuid')
 go
 
 
-insert into [room]
-values('123 west main st', 'nashville', 'TN','12345', 1, 0)
-
-go
 
 insert into [images]
 values('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9HBzEmvIMS4exeopzvvOwivL81lxEnnJMcoMKAIJ1TVOOjCU&s', 0, 1, 1)
@@ -107,4 +108,9 @@ Go
 insert into [Appointment]
 values (1, 1, '20190909');
 
+insert into [room]
+values('123 west main st', 'nashville', 'TN','12345', 1, 0, 1, 'Room available', 'room desc blah blah', 02/02/2020 , '$400.00'),
+('321 west main st', 'Lebanon', 'TN','12345', 1, 0, 1, 'Room available', 'room desc blah blah', 02/20/2020 , '$500.00')
+
+go
 
