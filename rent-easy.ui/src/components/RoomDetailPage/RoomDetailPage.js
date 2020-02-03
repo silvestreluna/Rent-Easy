@@ -1,5 +1,7 @@
 import React from 'react';
+import Map from '../Map/Map';
 import dataRequest from '../../data/roomsRequest';
+import geoData from '../../data/geoDataRequest';
 
 import './RoomDetailPage.scss';
 
@@ -7,13 +9,37 @@ import './RoomDetailPage.scss';
 class RoomDetailPage extends React.Component {
   state = {
     room: [],
+    lat: '',
+    lon: '',
+    displayName: '',
   }
 
   loadRoom = () => {
     const roomId = this.props.match.params.id;
     dataRequest.getRoomById(roomId)
-      .then((resp) => this.setState({ room: resp.data }))
+      .then((resp) => {
+        this.setState({ room: resp.data });
+        this.getLocationData();
+      })
       .catch((error) => console.error(error));
+  }
+
+  getLocationData = () => {
+    const { street } = this.state.room;
+    const { city } = this.state.room;
+    const { state } = this.state.room;
+    const { zip } = this.state.room;
+
+    const address = `${street}, ${city} ${state} ${zip}`;
+    geoData.getGeoLoc(address)
+      .then((resp) => {
+        this.setState({
+          lat: resp.lat,
+          lon: resp.lon,
+          displayName: resp.display_name,
+        });
+      })
+      .catch();
   }
 
   componentDidMount() {
@@ -21,8 +47,12 @@ class RoomDetailPage extends React.Component {
   }
 
   render() {
-    const { room } = this.state;
-    console.error(room);
+    const {
+      room,
+      lat,
+      lon,
+      displayName,
+    } = this.state;
     return (
       <div className="RoomDetailPage">
         <div className="main">
@@ -64,6 +94,10 @@ class RoomDetailPage extends React.Component {
           </div>
           <div>
             <p>{room.roomDesc}</p>
+          </div>
+
+          <div className="map-container">
+            <Map lat={lat} lon={lon} displayName={displayName}/>
           </div>
         </div>
       </div>
