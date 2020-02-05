@@ -12,4 +12,6 @@ const getAllRooms = () => new Promise((resolve, reject) => {
 
 const getRoomById = (id) => axios.get(`${baseUrl}/${id}`);
 
-export default { getAllRooms, getRoomById };
+const addNewRoom = (newRoomObj) => axios.post(`${baseUrl}`, newRoomObj);
+
+export default { getAllRooms, getRoomById, addNewRoom };

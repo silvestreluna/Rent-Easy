@@ -41,7 +41,7 @@ class NewUser extends React.Component {
     data.addNewUser(userInfo)
       .then(() => {
         this.resetState();
-        this.props.history.push('/roomDetail');
+        this.props.history.push('/home');
       })
       .catch((error) => console.error(error));
   }
