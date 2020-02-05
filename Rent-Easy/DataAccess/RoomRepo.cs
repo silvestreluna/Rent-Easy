@@ -98,7 +98,7 @@ namespace Rent_Easy.DataAccess
                      
                     output inserted.*                        
 
-                    VALUES (@street, @city, @state, @zip, @userId, @isMasterRoom)";
+                    VALUES (@street, @city, @state, @zip, @userId, @isMasterRoom, @privateBathroom, @title, @roomDesc, @availDate, @price)";
 
                 return db.QueryFirst<Room>(sql, newRoom);
             }
