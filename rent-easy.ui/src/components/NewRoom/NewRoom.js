@@ -19,6 +19,7 @@ class NewRoom extends React.Component {
     roomDesc: '',
     availDate: '',
     price: '',
+    img: [],
   }
 
   getUserInputValue = (e) => {
@@ -31,6 +32,21 @@ class NewRoom extends React.Component {
     const isChecked = e.target.checked;
     const inputName = e.target.name;
     this.setState({ [inputName]: isChecked });
+  }
+
+  imgSelectionHandler = (e) => {
+    e.preventDefault();
+    const allFiles = e.target.files;
+    const tempImgs = [];
+    const imgFiles = [];
+
+    for (let i = 0; i < allFiles.length; i += 1) {
+      const img = URL.createObjectURL(allFiles.item(i));
+      tempImgs.push(img);
+      imgFiles.push(allFiles[i]);
+      console.error(allFiles[i]);
+    }
+    this.setState({ img: tempImgs });
   }
 
   addNewRoomToDb = (e) => {
@@ -86,7 +102,11 @@ class NewRoom extends React.Component {
       roomDesc,
       availDate,
       price,
+      img,
     } = this.state;
+
+    const displayTempImgs = img.map((imgUrl) => <img src={imgUrl} key={imgUrl} alt="product img"/>);
+
     return (
       <form className="container" onSubmit={this.addNewRoomToDb}>
 
@@ -138,6 +158,25 @@ class NewRoom extends React.Component {
           <div className="col">
             <input name="zip" id="zip" className="form-control" placeholder="Zip" value={zip} onChange={this.getUserInputValue} />
           </div>
+        </div>
+
+        <div className="custom-file mt-5 mb-5">
+          <input type="file" className="custom-file-input" id="room-imgs" multiple onChange={this.imgSelectionHandler}/>
+          <label className="custom-file-label" htmlFor="room-imgs">Add at least 5 room images.</label>
+        </div>
+
+        <div className="diplay-temp-img">
+          {
+            (img)
+              ? (
+                <div className="temp-img-wrapper">
+                  {displayTempImgs}
+                </div>
+              )
+              : (
+                ''
+              )
+          }
         </div>
 
         <div className="col-sm-10 mt-5">

@@ -78,6 +78,11 @@ class RoomDetailPage extends React.Component {
         </div>
 
         <div className="details-content">
+          {
+            (room.images !== undefined && room.images.length > 0)
+              ? (<img src={`data:image/jpg;base64,${room.images[0].url}`} />)
+              : ('')
+          }
           <div className="title">
             <p>{room.title}</p>
           </div>

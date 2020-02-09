@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rent_Easy.Models
+namespace Rent_Easy.DTO
 {
-    public class Images
+    public class ImageDTO
     {
-        public int Id { get; set; }
         public byte[] Url { get; set; }
         public bool IsUserProfileImg { get; set; }
         public int RoomId { get; set; }
