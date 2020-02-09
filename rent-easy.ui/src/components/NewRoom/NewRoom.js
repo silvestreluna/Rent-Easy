@@ -111,7 +111,7 @@ class NewRoom extends React.Component {
       <form className="container" onSubmit={this.addNewRoomToDb}>
 
         <div className="form-group">
-          <label htmlFor="avail-date">Title</label>
+          <label htmlFor="avail-date">Move in date</label>
           <input type="date" name="availDate" className="form-control" id="avail-date" value={availDate} onChange={this.getUserInputValue} />
         </div>
 
