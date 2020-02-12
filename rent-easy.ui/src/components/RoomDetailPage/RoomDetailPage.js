@@ -58,23 +58,7 @@ class RoomDetailPage extends React.Component {
       <div className="RoomDetailPage">
         <div className="main">
           <div className="content">
-            <PhotoGallery />
-            {/* <div className="left">
-              <div className="img-container">
-              </div>
-            </div>
-
-            <div className="right">
-              <div className="img-wrap-one">
-                <div className="img1"></div>
-                <div className="img2"></div>
-              </div>
-
-              <div className="img-wrap-two">
-                <div className="img1"></div>
-                <div className="img2"></div>
-              </div>
-            {/* </div> */}
+            <PhotoGallery images={room.images}/>
           </div>
         </div>
 

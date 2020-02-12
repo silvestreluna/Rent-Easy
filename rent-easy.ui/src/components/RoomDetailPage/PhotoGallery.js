@@ -2,10 +2,15 @@ import React from 'react';
 
 class PhotoGallery extends React.Component {
   render() {
+    const { images } = this.props;
+    let allImgs;
+    if (images !== undefined) {
+      allImgs = images.map((img) => <img src={`data:image/jpg;base64,${img.url}`} key={img.id} alt="..." />);
+    }
     return (
-      <div>
-        <h1>Hello</h1>
-      </div>
+      <React.Fragment>
+          {allImgs}
+      </React.Fragment>
     );
   }
 }
