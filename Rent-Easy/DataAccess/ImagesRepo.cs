@@ -32,5 +32,27 @@ namespace Rent_Easy.DataAccess
 
             }
         }
+
+        // THIS WILL NOT WORK!!!! YOU NEED TO FIX IT. YOU ARE PASSING MORE THEN JUST A BYTES FILE... A WHOLE OBJECT IS COMING INT.....
+
+        public bool addNewImage(byte[] url, int userId, int roomId, bool isUserProfileImg)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"INSERT INTO [dbo].[Images]
+           ([Url]
+           ,[IsUserProfileImg]
+           ,[RoomId]
+           ,[UserId])
+     VALUES
+           (@url
+           ,@isUserProfileImg
+           ,@roomId
+           ,@userId)";
+
+                return db.Execute(sql, new { url, userId, roomId, isUserProfileImg }) == 1;
+            }
+
+        }
     }
 }

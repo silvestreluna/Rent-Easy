@@ -1,5 +1,6 @@
 import React from 'react';
 import Map from '../Map/Map';
+import PhotoGallery from './PhotoGallery';
 import dataRequest from '../../data/roomsRequest';
 import geoData from '../../data/geoDataRequest';
 
@@ -57,27 +58,16 @@ class RoomDetailPage extends React.Component {
       <div className="RoomDetailPage">
         <div className="main">
           <div className="content">
-            <div className="left">
-              <div className="img-container">
-              </div>
-            </div>
-
-            <div className="right">
-              <div className="img-wrap-one">
-                <div className="img1"></div>
-                <div className="img2"></div>
-
-              </div>
-
-              <div className="img-wrap-two">
-                <div className="img1"></div>
-                <div className="img2"></div>
-              </div>
-            </div>
+            <PhotoGallery images={room.images}/>
           </div>
         </div>
 
         <div className="details-content">
+          {/* {
+            (room.images !== undefined && room.images.length > 0)
+              ? (<img src={`data:image/jpg;base64,${room.images[0].url}`} />)
+              : ('')
+          } */}
           <div className="title">
             <p>{room.title}</p>
           </div>

@@ -2,6 +2,7 @@ import React from 'react';
 // import data from '../../data/addressChecker';
 // import uspsId from '../../data/myUspsId.json';
 import roomData from '../../data/roomsRequest';
+import imgData from '../../data/ImageRequest';
 
 import './NewRoom.scss';
 
@@ -19,6 +20,11 @@ class NewRoom extends React.Component {
     roomDesc: '',
     availDate: '',
     price: '',
+    img: [],
+    step: 2,
+    rawImages: [],
+    // userId: '',
+    newProdId: '',
   }
 
   getUserInputValue = (e) => {
@@ -31,6 +37,47 @@ class NewRoom extends React.Component {
     const isChecked = e.target.checked;
     const inputName = e.target.name;
     this.setState({ [inputName]: isChecked });
+  }
+
+  imgSelectionHandler = (e) => {
+    e.preventDefault();
+    const allFiles = e.target.files;
+    const tempImgs = [];
+    const imgFiles = [];
+
+    for (let i = 0; i < allFiles.length; i += 1) {
+      const img = URL.createObjectURL(allFiles.item(i));
+      tempImgs.push(img);
+      imgFiles.push(allFiles[i]);
+    }
+    this.setState({ img: tempImgs });
+    this.setState({ rawImages: imgFiles });
+  }
+
+  addImgsToDb = (e) => {
+    e.persist();
+    const {
+      rawImages,
+      // userId,
+      newProdId,
+    } = this.state;
+    const promises = [];
+
+    for (let i = 0; i < rawImages.length; i += 1) {
+      const dataForm = new FormData();
+      dataForm.append('file', rawImages[i]);
+      dataForm.append('userId', 2);
+      dataForm.append('roomId', newProdId);
+      dataForm.append('isUserImage', false);
+      promises.push(imgData.postImgToDb(dataForm));
+    }
+
+    Promise.all(promises)
+      .then(() => {
+        this.setState({ newProdId: '' });
+        this.props.history.push('/home');
+      })
+      .catch((error) => console.error(error));
   }
 
   addNewRoomToDb = (e) => {
@@ -64,8 +111,9 @@ class NewRoom extends React.Component {
           availDate: '',
           price: '',
         });
-
-        this.props.history.push('/home');
+        this.setState({ newProdId: resp.data.id });
+        this.addImgsToDb(e);
+        // this.props.history.push('/home');
       })
       .catch((error) => console.error(error));
   }
@@ -86,12 +134,16 @@ class NewRoom extends React.Component {
       roomDesc,
       availDate,
       price,
+      img,
     } = this.state;
+
+    const displayTempImgs = img.map((imgUrl) => <img src={imgUrl} key={imgUrl} alt="product img"/>);
+
     return (
       <form className="container" onSubmit={this.addNewRoomToDb}>
 
         <div className="form-group">
-          <label htmlFor="avail-date">Title</label>
+          <label htmlFor="avail-date">Move in date</label>
           <input type="date" name="availDate" className="form-control" id="avail-date" value={availDate} onChange={this.getUserInputValue} />
         </div>
 
@@ -140,8 +192,27 @@ class NewRoom extends React.Component {
           </div>
         </div>
 
+        <div className="custom-file mt-5 mb-5">
+          <input type="file" className="custom-file-input" id="room-imgs" multiple onChange={this.imgSelectionHandler}/>
+          <label className="custom-file-label" htmlFor="room-imgs">Add at least 5 room images.</label>
+        </div>
+
+        <div className="display-temp-img">
+          {
+            (img)
+              ? (
+                <div className="temp-img-wrapper">
+                  {displayTempImgs}
+                </div>
+              )
+              : (
+                ''
+              )
+          }
+        </div>
+
         <div className="col-sm-10 mt-5">
-          <button type="submit" className="btn btn-primary">Sign in</button>
+          <button type="submit" className="btn btn-primary">Add Room</button>
         </div>
       </form>
     );

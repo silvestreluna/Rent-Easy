@@ -8,10 +8,14 @@ class RoomTile extends React.Component {
   render() {
     const { room } = this.props;
 
+    const tileRoomBackground = {
+      backgroundImage: `url(data:image/jpg;base64,${room.images[0].url})`,
+    };
+
     const detailPage = `/roomDetail/${room.id}`;
     return (
       <div className="RoomTile">
-        <div className="card-img">
+        <div className="card-img" style={tileRoomBackground}>
         </div>
         <div className="card-body">
           <div className="card-header-room">
